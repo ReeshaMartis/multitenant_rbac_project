@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  discussion_thread: one
+  tenant: one
+  created_by: one
+  body: MyText
+  version: 1
+
+two:
+  discussion_thread: two
+  tenant: two
+  created_by: two
+  body: MyText
+  version: 1

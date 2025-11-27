@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  discussion_thread: one
+  tenant: one
+  url: MyString
+  extrainfo: MyText
+
+two:
+  discussion_thread: two
+  tenant: two
+  url: MyString
+  extrainfo: MyText
