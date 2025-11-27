@@ -6,7 +6,7 @@ class CreateProjects < ActiveRecord::Migration[8.0]
       t.text :description
       t.integer :status
       t.date :target_date
-      t.references :created_by, null: false, foreign_key: true
+      t.references :created_by, null: false, foreign_key: { to_table: :users }
 
       t.timestamps
     end

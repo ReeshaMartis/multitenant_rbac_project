@@ -7,8 +7,8 @@ class CreateTasks < ActiveRecord::Migration[8.0]
       t.text :description
       t.integer :status
       t.integer :priority
-      t.references :assignee, null: false, foreign_key: true
-      t.references :created_by, null: false, foreign_key: true
+      t.references :assignee, null: false, foreign_key: { to_table: :users }
+      t.references :created_by, null: false, foreign_key: { to_table: :users }
       t.date :due_date
       t.datetime :completed_at
 
