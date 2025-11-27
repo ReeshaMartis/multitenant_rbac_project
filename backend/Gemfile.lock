@@ -103,8 +103,13 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     dotenv (3.1.8)
+    dotenv-rails (3.1.8)
+      dotenv (= 3.1.8)
+      railties (>= 6.1)
     drb (2.2.3)
     ed25519 (1.4.0)
+    enumerize (2.8.1)
+      activesupport (>= 3.2)
     erb (6.0.0)
     erubi (1.13.1)
     et-orbi (1.4.0)
@@ -353,6 +358,8 @@ DEPENDENCIES
   brakeman
   capybara
   debug
+  dotenv-rails
+  enumerize
   importmap-rails
   jbuilder
   jwt

@@ -5,7 +5,7 @@ class CreateDiscussionThreads < ActiveRecord::Migration[8.0]
       t.references :task, null: false, foreign_key: true
       t.string :title
       t.text :body
-      t.integer :status
+      t.integer :status, default:0
       t.references :created_by, null: false, foreign_key: { to_table: :users }
 
       t.timestamps

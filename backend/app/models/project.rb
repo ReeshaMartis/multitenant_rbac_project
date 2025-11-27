@@ -4,7 +4,11 @@ class Project < ApplicationRecord
 
   has_many :tasks
 
-  enum status: {active: 0, on_hold: 1, completed: 2}
+  # enum status: {active: 0, on_hold: 1, completed: 2}
+
+  extend Enumerize
+  enumerize :role, in: {active: 0, on_hold: 1, completed: 2}, default: :active, predicates: true
+
 
   validates :name, presence: true, uniqueness: {scope: :tenant_id}
 end

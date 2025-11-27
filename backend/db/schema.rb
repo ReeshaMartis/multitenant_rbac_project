@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_27_024026) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_27_162258) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -30,7 +30,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_27_024026) do
     t.bigint "task_id", null: false
     t.string "title"
     t.text "body"
-    t.integer "status"
+    t.integer "status", default: 0, null: false
     t.bigint "created_by_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -43,7 +43,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_27_024026) do
     t.bigint "tenant_id", null: false
     t.string "name"
     t.text "description"
-    t.integer "status"
+    t.integer "status", default: 0, null: false
     t.date "target_date"
     t.bigint "created_by_id", null: false
     t.datetime "created_at", null: false
@@ -70,7 +70,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_27_024026) do
     t.bigint "project_id", null: false
     t.string "title"
     t.text "description"
-    t.integer "status"
+    t.integer "status", default: 0, null: false
     t.integer "priority"
     t.bigint "assignee_id", null: false
     t.bigint "created_by_id", null: false
@@ -93,7 +93,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_27_024026) do
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
-    t.integer "role"
+    t.integer "role", default: 2, null: false
     t.bigint "tenant_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
