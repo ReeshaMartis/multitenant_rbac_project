@@ -2,6 +2,7 @@ class DiscussionThread < ApplicationRecord
   belongs_to :tenant
   belongs_to :task
   belongs_to :created_by, class_name: 'User' 
+  belongs_to :project 
 
   has_many :replies
   has_many :attachments

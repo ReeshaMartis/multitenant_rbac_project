@@ -5,6 +5,8 @@ class TasksController < ApplicationController
     before_action :authorize_request
     before_action :set_project
     before_action :set_task, only: [:show, :update, :destroy]
+    before_action -> { require_same_tenant(@task) }, only: [:show, :update, :destroy] #block cross tenant access
+
 
       # RBAC filters
     before_action :can_create_task?, only: [:create]

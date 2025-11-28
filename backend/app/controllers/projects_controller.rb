@@ -3,9 +3,13 @@ class ProjectsController < ApplicationController
     skip_before_action :verify_authenticity_token
     #to check user authorization: token validation
     before_action :authorize_request
-    before_action :set_project, only: [:show, :update, :destroy]
+
+    before_action :set_project, only: [:show, :update, :destroy] #loads projects of the specific tenant only
+    before_action -> { require_same_tenant(@project) }, only: [:show, :update, :destroy] #block cross tenant access
 
     # RBAC filters
+    before_action :can_see_projects_index?, only: [:index]
+    before_action :can_see_project?, only: [:show]
     before_action :can_create_project?, only: [:create]
     before_action :can_update_project?, only: [:update]
     before_action :can_destroy_project?, only: [:destroy]
@@ -13,9 +17,10 @@ class ProjectsController < ApplicationController
     
     # GET /projects
     def index
-        projects = Project.active.where(tenant_id: current_user.tenant_id)
-        if projects.any?
-            render json: projects, status: :ok
+        # projects = Project.active.where(tenant_id: current_user.tenant_id)
+        @projects
+        if @projects.any?
+            render json: @projects, status: :ok
         else 
             render json: {message: "No Projects added"}, status: :ok
         end
@@ -74,6 +79,26 @@ class ProjectsController < ApplicationController
     end
     
     # RBAC filters
+    def can_see_projects_index?
+        if current_user.admin? || current_user.manager?
+            @projects = Project.active.where(tenant_id: current_user.tenant_id)
+        else
+            @projects = Project.active.where(tenant_id: current_user.tenant_id, created_by_id: current_user.id)
+        end
+    end
+
+    def can_see_project?
+        if current_user.admin? || current_user.manager?
+            return true
+        elsif current_user.contributor?
+            unless @project.created_by_id == current_user.id
+                render json: { error: "Forbidden: cannot view this project" }, status: :forbidden
+            end
+        else
+            render json: { error: "Forbidden: cannot view project" }, status: :forbidden
+        end
+    end
+
     def can_create_project?
         unless current_user.admin? || current_user.manager?
             render json: { error: "Forbidden: cannot create project" }, status: :forbidden

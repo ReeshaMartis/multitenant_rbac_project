@@ -6,6 +6,8 @@ class DiscussionThreadsController < ApplicationController
     before_action :set_project
     before_action :set_task
     before_action :set_discussion_thread, only: [:show, :update]
+    before_action -> { require_same_tenant(@discussion_thread) }, only: [:show, :update, :destroy] #block cross tenant access
+
 
       # RBAC filters
     before_action :can_create_discussion_thread?, only: [:create]

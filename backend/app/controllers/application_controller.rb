@@ -31,6 +31,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_same_tenant(resource)
+  return render json: { error: "Resource not found" }, status: :not_found unless resource
+  return render json: { error: "Access denied: tenant mismatch" }, status: :forbidden if resource.tenant_id != current_user.tenant_id
+end
+
+
 end 
 
 
