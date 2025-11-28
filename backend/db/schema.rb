@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_27_162258) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_28_031340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -34,7 +34,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_27_162258) do
     t.bigint "created_by_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "project_id", null: false
     t.index ["created_by_id"], name: "index_discussion_threads_on_created_by_id"
+    t.index ["project_id"], name: "index_discussion_threads_on_project_id"
     t.index ["task_id"], name: "index_discussion_threads_on_task_id"
     t.index ["tenant_id"], name: "index_discussion_threads_on_tenant_id"
   end
@@ -48,7 +50,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_27_162258) do
     t.bigint "created_by_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["created_by_id"], name: "index_projects_on_created_by_id"
+    t.index ["deleted_at"], name: "index_projects_on_deleted_at"
     t.index ["tenant_id"], name: "index_projects_on_tenant_id"
   end
 
@@ -78,8 +82,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_27_162258) do
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["assignee_id"], name: "index_tasks_on_assignee_id"
     t.index ["created_by_id"], name: "index_tasks_on_created_by_id"
+    t.index ["deleted_at"], name: "index_tasks_on_deleted_at"
     t.index ["project_id"], name: "index_tasks_on_project_id"
     t.index ["tenant_id"], name: "index_tasks_on_tenant_id"
   end
@@ -102,6 +108,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_27_162258) do
 
   add_foreign_key "attachments", "discussion_threads"
   add_foreign_key "attachments", "tenants"
+  add_foreign_key "discussion_threads", "projects"
   add_foreign_key "discussion_threads", "tasks"
   add_foreign_key "discussion_threads", "tenants"
   add_foreign_key "discussion_threads", "users", column: "created_by_id"

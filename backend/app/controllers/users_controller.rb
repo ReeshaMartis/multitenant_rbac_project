@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    skip_before_action :authorize_request, only: [:create, :login] #RBAC skip
     # Skip CSRF for API endpoints
     skip_before_action :verify_authenticity_token, only: [:create, :login]
 

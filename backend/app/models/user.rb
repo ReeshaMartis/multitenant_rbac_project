@@ -16,12 +16,16 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: {scope: :tenant_id}
   
-  # Set Rails-level default for role
-  # after_initialize :set_default_role, if: :new_record?
-
-
-  # def set_default_role
-  #   self.role ||= :contributor
+  #  # helper methods for integer-backed roles
+  # def admin?
+  #   role.to_i == 0
   # end
 
+  # def manager?
+  #   role.to_i == 1
+  # end
+
+  # def contributor?
+  #   role.to_i == 2
+  # end
 end

@@ -8,6 +8,7 @@ class JwtService
     end
 
     def self.decode(token)
+        puts "decoding with #{ENV['JWT_SECRET_KEY']}"
         decoded = JWT.decode(token,secret_key,true,algorithm: 'HS256')
         decoded[0]
     rescue JWT::DecodeError
