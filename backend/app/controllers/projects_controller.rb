@@ -61,10 +61,14 @@ class ProjectsController < ApplicationController
 
     # DELETE /projects/:id
     def destroy
-        if @project.update(deleted_at: Time.current)
-            render json: { message: "Project archived (soft deleted)" }, status: :ok
+        if @project.tasks.exists?
+            render json: { message: "Cannot delete project with tasks" }, status: :forbidden
         else
-            render json: { message: "Failed to delete project", errors: @project.errors }, status: :unprocessable_entity
+            if @project.update(deleted_at: Time.current)
+                render json: { message: "Project archived (soft deleted)" }, status: :ok
+            else
+                render json: { message: "Failed to delete project", errors: @project.errors }, status: :unprocessable_entity
+            end
         end
     end
 
