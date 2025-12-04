@@ -16,7 +16,9 @@ class TasksController < ApplicationController
 
       # GET /projects/:project_id/tasks
     def index
-        tasks = Task.active.where(tenant_id: current_user.tenant_id, project_id: params[:project_id])
+        page = params[:page] ||1
+        per_page = params[:per_page] ||20
+        tasks = Task.active.where(tenant_id: current_user.tenant_id, project_id: params[:project_id]).paginate(page,per_page)
         if tasks.any?
             render json: tasks, status: :ok
         else 
