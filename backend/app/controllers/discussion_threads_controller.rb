@@ -17,7 +17,9 @@ class DiscussionThreadsController < ApplicationController
 
       # GET /projects/:project_id/tasks/:task_id/discussion_threads
     def index
-        discussion_threads = DiscussionThread.where(tenant_id: current_user.tenant_id, project_id: params[:project_id], task_id: params[:task_id])
+        page = params[:page] ||1
+        per_page = params[:per_page] ||20
+        discussion_threads = DiscussionThread.where(tenant_id: current_user.tenant_id, project_id: params[:project_id], task_id: params[:task_id]).paginate(page,per_page)
         if discussion_threads.any?
             render json: discussion_threads, status: :ok
         else 

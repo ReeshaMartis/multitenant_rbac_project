@@ -7,7 +7,7 @@ class DiscussionThread < ApplicationRecord
   has_many :replies
   has_many :attachments
 
-  # enum status: {open: 0, responded: 1, resolved:2, archived:3}
+   include Paginatable
 
   extend Enumerize
   enumerize :status, in: {open: 0, responded: 1, resolved:2, archived:3}, default: :open, predicates: true
