@@ -31,7 +31,7 @@ class UsersController < ApplicationController
                 role: user.role
                 }
                 puts "payload : #{payload.inspect}"
-                token = JwtService.encode(payload)
+                token = JwtService.encode_access(payload)
                 render json: { token: token }, status: :ok
             else
                 puts "PASSWORD DID NOT MATCH"

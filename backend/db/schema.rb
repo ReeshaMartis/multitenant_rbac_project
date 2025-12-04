@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_28_031340) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_01_002107) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -54,6 +54,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_28_031340) do
     t.index ["created_by_id"], name: "index_projects_on_created_by_id"
     t.index ["deleted_at"], name: "index_projects_on_deleted_at"
     t.index ["tenant_id"], name: "index_projects_on_tenant_id"
+  end
+
+  create_table "refresh_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "token_digest"
+    t.datetime "expires_at"
+    t.datetime "revoked_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_refresh_tokens_on_user_id"
   end
 
   create_table "replies", force: :cascade do |t|
@@ -114,6 +124,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_28_031340) do
   add_foreign_key "discussion_threads", "users", column: "created_by_id"
   add_foreign_key "projects", "tenants"
   add_foreign_key "projects", "users", column: "created_by_id"
+  add_foreign_key "refresh_tokens", "users"
   add_foreign_key "replies", "discussion_threads"
   add_foreign_key "replies", "tenants"
   add_foreign_key "replies", "users", column: "created_by_id"

@@ -17,8 +17,9 @@ class ProjectsController < ApplicationController
     
     # GET /projects
     def index
-        # projects = Project.active.where(tenant_id: current_user.tenant_id)
-        @projects
+        page = params[:page] ||1
+        per_page = params[:per_page] ||20
+        @projects = @projects.paginate(page,per_page)
         if @projects.any?
             render json: @projects, status: :ok
         else 
@@ -75,7 +76,7 @@ class ProjectsController < ApplicationController
 
     private
     def set_project
-        @project = Project.active.where(tenant_id: current_user.tenant_id).find_by(id: params[:id])
+        @project = Project.active.where(tenant_id: current_user.tenant_id).find_by(id: [params:id])
     end
 
     def project_params
