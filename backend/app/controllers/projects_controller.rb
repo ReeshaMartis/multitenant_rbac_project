@@ -16,7 +16,20 @@ class ProjectsController < ApplicationController
 
     
     # GET /projects
+   # GET /projects?page=1&per_page=2
     def index
+        # @projects is already set by can_see_projects_index? (tenant + RBAC)
+
+        #apply filters
+        @projects = @projects.by_status(params[:status])
+                       .by_name(params[:name])
+                       .by_creator(params[:created_by])
+                       .target_after(params[:target_after])
+                       .target_before(params[:target_before])
+                       .created_after(params[:created_after])
+                       .created_before(params[:created_before])
+
+        #pagination
         page = params[:page] ||1
         per_page = params[:per_page] ||20
         @projects = @projects.paginate(page,per_page)
@@ -76,7 +89,7 @@ class ProjectsController < ApplicationController
 
     private
     def set_project
-        @project = Project.active.where(tenant_id: current_user.tenant_id).find_by(id: [params:id])
+        @project = Project.active.where(tenant_id: current_user.tenant_id).find_by(id: params[:id])
     end
 
     def project_params

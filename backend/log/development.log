@@ -8788,3 +8788,5 @@ Processing by TasksController#index as */*
 Completed 200 OK in 1066ms (Views: 7.3ms | ActiveRecord: 2.4ms (4 queries, 0 cached) | GC: 0.0ms)
 
 
+[dotenv] Set [36mJWT_SECRET_KEY[0m
+[dotenv] Loaded [33m.env[0m
