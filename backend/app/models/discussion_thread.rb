@@ -7,7 +7,14 @@ class DiscussionThread < ApplicationRecord
   has_many :replies
   has_many :attachments
 
-   include Paginatable
+  include Paginatable
+
+  #filter scopes
+  scope :by_status,->(status) {where(status: status) if status.present? }
+  scope :by_title, ->(title) {where("title ILIKE ?","%#{title}%") if title.present? }
+  scope :by_creator, ->(created_by_id) {where(created_by_id: created_by_id)if created_by_id.present?} 
+  scope :created_before, ->(date) {where("created_at <= ?",date)if date.present? }
+  scope :created_after, ->(date) {where("created_at >= ?",date)if date.present? }
 
   extend Enumerize
   enumerize :status, in: {open: 0, responded: 1, resolved:2, archived:3}, default: :open, predicates: true

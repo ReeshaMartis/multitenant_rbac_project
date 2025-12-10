@@ -9,7 +9,8 @@ class DiscussionThreadsController < ApplicationController
     before_action -> { require_same_tenant(@discussion_thread) }, only: [:show, :update, :destroy] #block cross tenant access
 
 
-      # RBAC filters
+    # RBAC filters
+    before_action :can_see_discussion_thread_index?, only: [:index]
     before_action :can_create_discussion_thread?, only: [:create]
     before_action :can_update_discussion_thread?, only: [:update]
     # before_action :can_destroy_discussion_thread?, only: [:destroy]
@@ -17,11 +18,18 @@ class DiscussionThreadsController < ApplicationController
 
       # GET /projects/:project_id/tasks/:task_id/discussion_threads
     def index
+        @discussion_threads = @discussion_threads.by_status(params[:status])
+                                               .by_title(params[:title])
+                                               .by_creator(params[:creator_id])
+                                               .created_before(params[:created_before])
+                                               .created_after(params[:created_after])
+
         page = params[:page] ||1
         per_page = params[:per_page] ||20
-        discussion_threads = DiscussionThread.where(tenant_id: current_user.tenant_id, project_id: params[:project_id], task_id: params[:task_id]).paginate(page,per_page)
-        if discussion_threads.any?
-            render json: discussion_threads, status: :ok
+
+        @discussion_threads = @discussion_threads.paginate(page,per_page)
+        if @discussion_threads.any?
+            render json: @discussion_threads, status: :ok
         else 
             render json: {message: "No discussion_threads added to this project"}, status: :ok
         end
@@ -92,6 +100,15 @@ class DiscussionThreadsController < ApplicationController
 
      
     # RBAC filters
+    def can_see_discussion_thread_index?
+        if current_user.admin? || current_user.manager?
+            @discussion_threads = DiscussionThread.active.where(tenant_id: current_user.tenant_id, project_id: params[:project_id],task_id: params[:task_id])
+        else
+            @discussion_threads = DiscussionThread.active.where(tenant_id: current_user.tenant_id, project_id: params[:project_id],task_id: params[:task_id], created_by_id: current_user.id)
+        end
+    end
+
+
     def can_create_discussion_thread?
         unless current_user.admin? || current_user.manager?
             render json: { error: "Forbidden: cannot create discussion_thread" }, status: :forbidden

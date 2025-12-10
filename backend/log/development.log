@@ -9023,3 +9023,187 @@ Processing by ProjectsController#index as */*
 Completed 200 OK in 1023ms (Views: 6.7ms | ActiveRecord: 2.0ms (3 queries, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/projects/3/tasks?page=2&per_page=2" for ::1 at 2025-12-10 10:59:15 -0500
+Processing by TasksController#index as */*
+  Parameters: {"page" => "2", "per_page" => "2", "project_id" => "3", "task" => {}}
+Filter chain halted as :authorize_request rendered or redirected
+Completed 401 Unauthorized in 1228ms (Views: 0.8ms | ActiveRecord: 135.5ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/login" for ::1 at 2025-12-10 10:59:56 -0500
+Processing by UsersController#login as */*
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]", "user" => {"email" => "[FILTERED]"}}
+  [1m[36mUser Load (4.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@tenant1.com' LIMIT 1 /*action='login',application='Backend',controller='users'*/[0m
+  ↳ app/controllers/users_controller.rb:22:in 'UsersController#login'
+Completed 200 OK in 1496ms (Views: 0.2ms | ActiveRecord: 4.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects/3/tasks?page=2&per_page=2" for ::1 at 2025-12-10 11:00:39 -0500
+Processing by TasksController#index as */*
+  Parameters: {"page" => "2", "per_page" => "2", "project_id" => "3", "task" => {}}
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/application_controller.rb:28:in 'ApplicationController#authorize_request'
+  [1m[36mProject Load (4.7ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."deleted_at" IS NULL AND "projects"."tenant_id" = 1 AND "projects"."id" = 3 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:97:in 'TasksController#set_project'
+Completed 500 Internal Server Error in 1494ms (ActiveRecord: 6.4ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+NoMethodError (undefined method 'by_title' for nil):
+  
+app/controllers/tasks_controller.rb:22:in 'TasksController#index'
+Started GET "/projects/3/tasks?page=2&per_page=2" for ::1 at 2025-12-10 11:01:04 -0500
+Processing by TasksController#index as */*
+  Parameters: {"page" => "2", "per_page" => "2", "project_id" => "3", "task" => {}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/application_controller.rb:28:in 'ApplicationController#authorize_request'
+  [1m[36mProject Load (0.6ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."deleted_at" IS NULL AND "projects"."tenant_id" = 1 AND "projects"."id" = 3 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:97:in 'TasksController#set_project'
+Completed 500 Internal Server Error in 1054ms (ActiveRecord: 1.1ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+NoMethodError (undefined method 'by_title' for nil):
+  
+app/controllers/tasks_controller.rb:22:in 'TasksController#index'
+Started GET "/projects/3/tasks?page=2&per_page=2" for ::1 at 2025-12-10 11:37:35 -0500
+Processing by TasksController#index as */*
+  Parameters: {"page" => "2", "per_page" => "2", "project_id" => "3", "task" => {}}
+Filter chain halted as :authorize_request rendered or redirected
+Completed 401 Unauthorized in 1131ms (Views: 0.3ms | ActiveRecord: 14.5ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/login" for ::1 at 2025-12-10 11:37:53 -0500
+Processing by UsersController#login as */*
+  Parameters: {"email" => "[FILTERED]", "password" => "[FILTERED]", "user" => {"email" => "[FILTERED]"}}
+  [1m[36mUser Load (5.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@tenant1.com' LIMIT 1 /*action='login',application='Backend',controller='users'*/[0m
+  ↳ app/controllers/users_controller.rb:22:in 'UsersController#login'
+Completed 200 OK in 1471ms (Views: 0.2ms | ActiveRecord: 5.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects/3/tasks?page=2&per_page=2" for ::1 at 2025-12-10 11:38:40 -0500
+Processing by TasksController#index as */*
+  Parameters: {"page" => "2", "per_page" => "2", "project_id" => "3", "task" => {}}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/application_controller.rb:28:in 'ApplicationController#authorize_request'
+  [1m[36mProject Load (4.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."deleted_at" IS NULL AND "projects"."tenant_id" = 1 AND "projects"."id" = 3 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:98:in 'TasksController#set_project'
+  [1m[36mTask Exists? (69.9ms)[0m  [1m[34mSELECT 1 AS one FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 LIMIT 1 OFFSET 2 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:38:in 'TasksController#index'
+  [1m[36mTask Load (12.7ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 LIMIT 2 OFFSET 2 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:39:in 'TasksController#index'
+Completed 200 OK in 1847ms (Views: 308.0ms | ActiveRecord: 115.6ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects/3/tasks?page=2&per_page=2&priority=2" for ::1 at 2025-12-10 11:39:08 -0500
+Processing by TasksController#index as */*
+  Parameters: {"page" => "2", "per_page" => "2", "priority" => "2", "project_id" => "3", "task" => {}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/application_controller.rb:28:in 'ApplicationController#authorize_request'
+  [1m[36mProject Load (0.8ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."deleted_at" IS NULL AND "projects"."tenant_id" = 1 AND "projects"."id" = 3 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:98:in 'TasksController#set_project'
+  [1m[36mTask Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 AND "tasks"."priority" = 2 LIMIT 1 OFFSET 2 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:38:in 'TasksController#index'
+  [1m[36mTask Load (0.7ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 AND "tasks"."priority" = 2 LIMIT 2 OFFSET 2 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:39:in 'TasksController#index'
+Completed 200 OK in 1123ms (Views: 6.9ms | ActiveRecord: 2.8ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects/3/tasks?page=2&per_page=2" for ::1 at 2025-12-10 11:39:20 -0500
+Processing by TasksController#index as */*
+  Parameters: {"page" => "2", "per_page" => "2", "project_id" => "3", "task" => {}}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/application_controller.rb:28:in 'ApplicationController#authorize_request'
+  [1m[36mProject Load (1.0ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."deleted_at" IS NULL AND "projects"."tenant_id" = 1 AND "projects"."id" = 3 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:98:in 'TasksController#set_project'
+  [1m[36mTask Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 LIMIT 1 OFFSET 2 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:38:in 'TasksController#index'
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 LIMIT 2 OFFSET 2 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:39:in 'TasksController#index'
+Completed 200 OK in 1182ms (Views: 8.5ms | ActiveRecord: 2.7ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects/3/tasks?page=2&per_page=2&assignee_id=3" for ::1 at 2025-12-10 11:39:41 -0500
+Processing by TasksController#index as */*
+  Parameters: {"page" => "2", "per_page" => "2", "assignee_id" => "3", "project_id" => "3", "task" => {}}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/application_controller.rb:28:in 'ApplicationController#authorize_request'
+  [1m[36mProject Load (0.7ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."deleted_at" IS NULL AND "projects"."tenant_id" = 1 AND "projects"."id" = 3 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:98:in 'TasksController#set_project'
+  [1m[36mTask Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 AND "tasks"."assignee_id" = 3 LIMIT 1 OFFSET 2 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:38:in 'TasksController#index'
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 AND "tasks"."assignee_id" = 3 LIMIT 2 OFFSET 2 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:39:in 'TasksController#index'
+Completed 200 OK in 1361ms (Views: 7.0ms | ActiveRecord: 2.6ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects/3/tasks?page=2&per_page=2&assignee_ids=3" for ::1 at 2025-12-10 11:39:49 -0500
+Processing by TasksController#index as */*
+  Parameters: {"page" => "2", "per_page" => "2", "assignee_ids" => "3", "project_id" => "3", "task" => {}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/application_controller.rb:28:in 'ApplicationController#authorize_request'
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."deleted_at" IS NULL AND "projects"."tenant_id" = 1 AND "projects"."id" = 3 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:98:in 'TasksController#set_project'
+  [1m[36mTask Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 LIMIT 1 OFFSET 2 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:38:in 'TasksController#index'
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 LIMIT 2 OFFSET 2 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:39:in 'TasksController#index'
+Completed 200 OK in 1191ms (Views: 5.8ms | ActiveRecord: 1.9ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects/3/tasks?page=2&per_page=2&assignee_id=3" for ::1 at 2025-12-10 11:40:54 -0500
+Processing by TasksController#index as */*
+  Parameters: {"page" => "2", "per_page" => "2", "assignee_id" => "3", "project_id" => "3", "task" => {}}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/application_controller.rb:28:in 'ApplicationController#authorize_request'
+  [1m[36mProject Load (0.7ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."deleted_at" IS NULL AND "projects"."tenant_id" = 1 AND "projects"."id" = 3 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:98:in 'TasksController#set_project'
+  [1m[36mTask Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 AND "tasks"."assignee_id" = 3 LIMIT 1 OFFSET 2 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:38:in 'TasksController#index'
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 AND "tasks"."assignee_id" = 3 LIMIT 2 OFFSET 2 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:39:in 'TasksController#index'
+Completed 200 OK in 1213ms (Views: 8.3ms | ActiveRecord: 2.9ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects/3/tasks?page=2&per_page=2&due_after=2025-12-01&due_before=2026-01-10" for ::1 at 2025-12-10 11:42:24 -0500
+Processing by TasksController#index as */*
+  Parameters: {"page" => "2", "per_page" => "2", "due_after" => "2025-12-01", "due_before" => "2026-01-10", "project_id" => "3", "task" => {}}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/application_controller.rb:28:in 'ApplicationController#authorize_request'
+  [1m[36mProject Load (0.5ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."deleted_at" IS NULL AND "projects"."tenant_id" = 1 AND "projects"."id" = 3 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:98:in 'TasksController#set_project'
+  [1m[36mTask Exists? (2.2ms)[0m  [1m[34mSELECT 1 AS one FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 AND (due_date >= '2025-12-01' ) AND (due_date <= '2026-01-10' ) LIMIT 1 OFFSET 2 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:38:in 'TasksController#index'
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 AND (due_date >= '2025-12-01' ) AND (due_date <= '2026-01-10' ) LIMIT 2 OFFSET 2 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:39:in 'TasksController#index'
+Completed 200 OK in 1129ms (Views: 7.6ms | ActiveRecord: 4.1ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects/3/tasks?page=2&per_page=12&due_after=2025-12-01&due_before=2026-01-10" for ::1 at 2025-12-10 11:42:43 -0500
+Processing by TasksController#index as */*
+  Parameters: {"page" => "2", "per_page" => "12", "due_after" => "2025-12-01", "due_before" => "2026-01-10", "project_id" => "3", "task" => {}}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/application_controller.rb:28:in 'ApplicationController#authorize_request'
+  [1m[36mProject Load (0.6ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."deleted_at" IS NULL AND "projects"."tenant_id" = 1 AND "projects"."id" = 3 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:98:in 'TasksController#set_project'
+  [1m[36mTask Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 AND (due_date >= '2025-12-01' ) AND (due_date <= '2026-01-10' ) LIMIT 1 OFFSET 12 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:38:in 'TasksController#index'
+Completed 200 OK in 1159ms (Views: 0.2ms | ActiveRecord: 1.9ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects/3/tasks?page=1&per_page=12&due_after=2025-12-01&due_before=2026-01-10" for ::1 at 2025-12-10 11:42:49 -0500
+Processing by TasksController#index as */*
+  Parameters: {"page" => "1", "per_page" => "12", "due_after" => "2025-12-01", "due_before" => "2026-01-10", "project_id" => "3", "task" => {}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/application_controller.rb:28:in 'ApplicationController#authorize_request'
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."deleted_at" IS NULL AND "projects"."tenant_id" = 1 AND "projects"."id" = 3 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:98:in 'TasksController#set_project'
+  [1m[36mTask Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 AND (due_date >= '2025-12-01' ) AND (due_date <= '2026-01-10' ) LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:38:in 'TasksController#index'
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND "tasks"."tenant_id" = 1 AND "tasks"."project_id" = 3 AND (due_date >= '2025-12-01' ) AND (due_date <= '2026-01-10' ) LIMIT 12 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/tasks_controller.rb:39:in 'TasksController#index'
+Completed 200 OK in 1128ms (Views: 14.7ms | ActiveRecord: 2.3ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+[dotenv] Set [36mJWT_SECRET_KEY[0m
+[dotenv] Loaded [33m.env[0m
