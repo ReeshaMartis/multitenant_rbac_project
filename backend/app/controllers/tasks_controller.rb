@@ -9,6 +9,7 @@ class TasksController < ApplicationController
 
 
       # RBAC filters
+    before_action :can_see_tasks_index?, only: [:index]
     before_action :can_create_task?, only: [:create]
     before_action :can_update_task?, only: [:update]
     before_action :can_destroy_task?, only: [:destroy]
@@ -16,11 +17,26 @@ class TasksController < ApplicationController
 
       # GET /projects/:project_id/tasks
     def index
+        #@tasks using it for effective continuous chaining - it already has RBAC defined
+        #filter scope chaining
+
+        @tasks =@tasks.by_title(params[:title])
+                      .by_priority(params[:priority])
+                      .by_status(params[:status])
+                      .by_assignee(params[:assignee_id])
+                      .by_creator(params[:created_by])
+                      .duedate_after(params[:due_after])
+                      .duedate_before(params[:due_before])
+                      .completed_after(params[:completed_after])
+                      .completed_before(params[:completed_before])
+                      .created_after(params[:created_after])
+                      .created_before(params[:created_before]) 
+        #pagination    
         page = params[:page] ||1
         per_page = params[:per_page] ||20
-        tasks = Task.active.where(tenant_id: current_user.tenant_id, project_id: params[:project_id]).paginate(page,per_page)
-        if tasks.any?
-            render json: tasks, status: :ok
+        @tasks = @tasks.paginate(page,per_page)
+        if @tasks.any?
+            render json: @tasks, status: :ok
         else 
             render json: {message: "No Tasks added to this project"}, status: :ok
         end
@@ -94,6 +110,16 @@ class TasksController < ApplicationController
 
      
     # RBAC filters
+    def can_see_tasks_index?
+        if current_user.admin? || current_user.manager?
+            @tasks = Task.active.where(tenant_id: current_user.tenant_id, project_id: params[:project_id])
+        else
+            @tasks = Task.active
+                         .where(tenant_id: current_user.tenant_id, project_id: params[:project_id])
+                         .where("assignee_id = ? OR created_by_id = ?", current_user.id,current_user.id)
+        end
+    end
+
     def can_create_task?
         unless current_user.admin? || current_user.manager?
             render json: { error: "Forbidden: cannot create task" }, status: :forbidden
